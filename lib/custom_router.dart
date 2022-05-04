@@ -1,3 +1,4 @@
+import 'package:fluttagram/screens/counter/counter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttagram/screens/login/login_screen.dart';
 import 'package:fluttagram/screens/nav/nav_screen.dart';
@@ -18,6 +19,9 @@ class CustomRouter {
         return LoginScreen.route();
       case NavScreen.routeName:
         return LoginScreen.route();
+      // example: counter
+      case CounterScreen.routName:
+        return CounterScreen.route();
 
       default:
         return _errorRoute();

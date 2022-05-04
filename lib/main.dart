@@ -9,7 +9,6 @@ import 'package:fluttagram/repositories/auth/auth_repository.dart';
 import 'package:fluttagram/repositories/notification/notification_repository.dart';
 import 'package:fluttagram/repositories/post/post_repository.dart';
 import 'package:fluttagram/repositories/user/user_repository.dart';
-// import 'package:fluttagram/screens/count/count_screen.dart';
 import 'package:fluttagram/screens/splash/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -57,7 +56,6 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Colors.grey[50],
           ),
-          // home: const CountScreen(title: 'Instagram'),
           onGenerateRoute: CustomRouter.onGenerateRoute,
           initialRoute: SplashScreen.routName,
         ),

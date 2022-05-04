@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CountScreen extends StatefulWidget {
-  const CountScreen({Key? key, required this.title}) : super(key: key);
-  
+class CounterScreen extends StatefulWidget {
+  static const String routName = '/counter';
+
+  static Route route() {
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routName),
+      builder: (_) => CounterScreen(),
+    );
+  }
+
+  String title = 'Instagram';
+
+  CounterScreen({
+    Key? key,
+  }) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -13,13 +25,13 @@ class CountScreen extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+  // final String title;
 
   @override
-  State<CountScreen> createState() => _CountScreenState();
+  State<CounterScreen> createState() => _CounterScreenState();
 }
 
-class _CountScreenState extends State<CountScreen> {
+class _CounterScreenState extends State<CounterScreen> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -43,7 +55,7 @@ class _CountScreenState extends State<CountScreen> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the CountScreen object that was created by
+        // Here we take the value from the CounterScreen object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
