@@ -2,6 +2,20 @@
 
 A new Flutter project.
 
+```bash
+├── lib
+│   ├── blocs
+│   ├── cubits
+│   ├── custom_router.dart
+│   ├── enums
+│   ├── firebase_options.dart
+│   ├── generated_plugin_registrant.dart
+│   ├── main.dart
+│   ├── models                               # 后端返回的json
+│   ├── repositories                         # 处理数据传输和处理的类
+│   └── screens
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
