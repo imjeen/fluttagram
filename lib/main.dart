@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttagram/blocs/auth/auth_bloc.dart';
 import 'package:fluttagram/blocs/simple_bloc_observer.dart';
@@ -55,6 +56,27 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Colors.grey[50],
+            appBarTheme: AppBarTheme(
+              color: Colors.transparent,
+              elevation: 0,
+              iconTheme: const IconThemeData(color: Colors.black),
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
+              toolbarTextStyle: const TextTheme(
+                headline6: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ).bodyText2,
+              titleTextStyle: const TextTheme(
+                headline6: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ).headline6,
+            ),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           onGenerateRoute: CustomRouter.onGenerateRoute,
           initialRoute: SplashScreen.routName,
