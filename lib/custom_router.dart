@@ -1,4 +1,5 @@
 import 'package:fluttagram/screens/counter/counter_screen.dart';
+import 'package:fluttagram/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttagram/screens/login/login_screen.dart';
 import 'package:fluttagram/screens/nav/nav_screen.dart';
@@ -17,6 +18,8 @@ class CustomRouter {
         return SplashScreen.route();
       case LoginScreen.routeName:
         return LoginScreen.route();
+      case SignUpScreen.routeName:
+        return SignUpScreen.route();
       case NavScreen.routeName:
         return LoginScreen.route();
       // example: counter

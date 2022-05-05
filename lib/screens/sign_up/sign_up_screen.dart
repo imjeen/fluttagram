@@ -1,36 +1,36 @@
 import 'package:fluttagram/repositories/auth/auth_repository.dart';
-import 'package:fluttagram/screens/login/cubits/login_cubit.dart';
-import 'package:fluttagram/screens/sign_up/sign_up_screen.dart';
+import 'package:fluttagram/screens/login/login_screen.dart';
+import 'package:fluttagram/screens/sign_up/cubits/sign_up_cubit.dart';
 import 'package:fluttagram/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
-  static const String routeName = "/login";
+  static const String routeName = "/signup";
 
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (_) => const LoginScreen(),
+      builder: (_) =>  const SignUpScreen(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider<LoginCubit>(
+      body: BlocProvider(
         create: (_) =>
-            LoginCubit(authRepository: context.read<AuthRepository>()),
-        child: LoginForm(),
+            SignUpCubit(authRepository: context.read<AuthRepository>()),
+        child: SignUpForm(),
       ),
     );
   }
 }
 
-class LoginForm extends StatelessWidget {
-  LoginForm({Key? key}) : super(key: key);
+class SignUpForm extends StatelessWidget {
+  SignUpForm({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -40,9 +40,9 @@ class LoginForm extends StatelessWidget {
       onWillPop: () async => false,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: BlocConsumer<LoginCubit, LoginState>(
+        child: BlocConsumer<SignUpCubit, SignUpState>(
           listener: (context, state) {
-            if (state.status == LoginStatus.error) {
+            if (state.status == SignUpStatus.error) {
               showDialog(
                 context: context,
                 builder: (context) =>
@@ -57,8 +57,8 @@ class LoginForm extends StatelessWidget {
               ),
               body: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: _loginCard(context, state),
+                  padding: const EdgeInsets.all(20.0),
+                  child: _signUpCard(context, state),
                 ),
               ),
             );
@@ -68,10 +68,10 @@ class LoginForm extends StatelessWidget {
     );
   }
 
-  Card _loginCard(BuildContext context, LoginState state) {
+  Card _signUpCard(BuildContext context, SignUpState state) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -81,36 +81,42 @@ class LoginForm extends StatelessWidget {
             children: [
               const Text(
                 'Instagram',
-                style: TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 12.0),
+              const SizedBox(height: 20.0),
+              TextField(
+                decoration: const InputDecoration(hintText: 'User Name'),
+                onChanged: (value) {
+                  context.read<SignUpCubit>().userNameChanged(value);
+                },
+              ),
+              const SizedBox(height: 20.0),
               TextField(
                 decoration: const InputDecoration(hintText: 'Email'),
-                onChanged: (value) =>
-                    context.read<LoginCubit>().emailChanged(value: value),
+                onChanged: (value) {
+                  context.read<SignUpCubit>().emailChanged(value);
+                },
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 20.0),
               TextField(
                 obscureText: true,
                 decoration: const InputDecoration(hintText: 'Password'),
-                onChanged: (value) =>
-                    context.read<LoginCubit>().passwordChanged(value: value),
+                onChanged: (value) {
+                  context.read<SignUpCubit>().passwordChanged(value);
+                },
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(elevation: 5.0),
-                onPressed: () => {
+                onPressed: () {
                   if (_formKey.currentState?.validate() != true &&
-                      state.status != LoginStatus.submitting)
-                    {context.read<LoginCubit>().logInWithCredentials()}
+                      state.status != SignUpStatus.submitting) {
+                    context.read<SignUpCubit>().signUpWithCredentials();
+                  }
                 },
-                child: const Text('Login'),
+                child: const Text('Sign Up'),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.transparent,
@@ -120,9 +126,9 @@ class LoginForm extends StatelessWidget {
                   onSurface: Colors.transparent,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(SignUpScreen.routeName);
+                  Navigator.of(context).pushNamed(LoginScreen.routeName);
                 },
-                child: const Text('No Account ? Sign Up'),
+                child: const Text('Back to Login'),
               ),
             ],
           ),
