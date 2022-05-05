@@ -88,17 +88,37 @@ class LoginForm extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12.0),
-              TextField(
+              TextFormField(
                 decoration: const InputDecoration(hintText: 'Email'),
                 onChanged: (value) =>
                     context.read<LoginCubit>().emailChanged(value: value),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email';
+                  }
+
+                  if (!value.contains('@')) {
+                    return 'Please enter valid email';
+                  }
+
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
-              TextField(
+              TextFormField(
                 obscureText: true,
                 decoration: const InputDecoration(hintText: 'Password'),
                 onChanged: (value) =>
                     context.read<LoginCubit>().passwordChanged(value: value),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value.length < 6) {
+                    return 'Must be at least 6 characters';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(

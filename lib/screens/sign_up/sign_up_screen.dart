@@ -13,7 +13,7 @@ class SignUpScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (_) =>  const SignUpScreen(),
+      builder: (_) => const SignUpScreen(),
     );
   }
 
@@ -85,25 +85,51 @@ class SignUpForm extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20.0),
-              TextField(
-                decoration: const InputDecoration(hintText: 'User Name'),
+              TextFormField(
+                decoration: const InputDecoration(hintText: 'Username'),
                 onChanged: (value) {
                   context.read<SignUpCubit>().userNameChanged(value);
                 },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a valid username';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 20.0),
-              TextField(
+              TextFormField(
                 decoration: const InputDecoration(hintText: 'Email'),
                 onChanged: (value) {
                   context.read<SignUpCubit>().emailChanged(value);
                 },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter email';
+                  }
+
+                  if (!value.contains('@')) {
+                    return 'Please enter valid email';
+                  }
+
+                  return null;
+                },
               ),
               const SizedBox(height: 20.0),
-              TextField(
+              TextFormField(
                 obscureText: true,
                 decoration: const InputDecoration(hintText: 'Password'),
                 onChanged: (value) {
                   context.read<SignUpCubit>().passwordChanged(value);
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value.length < 6) {
+                    return 'Must be at least 6 characters';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 20.0),
