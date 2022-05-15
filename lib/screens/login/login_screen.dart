@@ -1,5 +1,6 @@
 import 'package:fluttagram/repositories/auth/auth_repository.dart';
 import 'package:fluttagram/screens/login/cubits/login_cubit.dart';
+import 'package:fluttagram/screens/nav/nav_screen.dart';
 import 'package:fluttagram/screens/sign_up/sign_up_screen.dart';
 import 'package:fluttagram/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +43,25 @@ class LoginForm extends StatelessWidget {
         onTap: () => FocusScope.of(context).unfocus(),
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
-            if (state.status == LoginStatus.error) {
-              showDialog(
-                context: context,
-                builder: (context) =>
-                    ErrorDialog(content: state.failure.message),
-              );
+            switch (state.status) {
+              case LoginStatus.error:
+                {
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        ErrorDialog(content: state.failure.message),
+                  );
+                  break;
+                }
+              case LoginStatus.initial:
+                // TODO: Handle this case.
+                break;
+              case LoginStatus.submitting:
+                // TODO: Handle this case.
+                break;
+              case LoginStatus.success:
+                Navigator.of(context).pushNamed(NavScreen.routeName);
+                break;
             }
           },
           builder: (context, state) {
@@ -124,7 +138,7 @@ class LoginForm extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(elevation: 5.0),
                 onPressed: () => {
-                  if (_formKey.currentState?.validate() != true &&
+                  if (_formKey.currentState!.validate() &&
                       state.status != LoginStatus.submitting)
                     {context.read<LoginCubit>().logInWithCredentials()}
                 },

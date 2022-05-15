@@ -21,11 +21,18 @@ class CustomRouter {
       case SignUpScreen.routeName:
         return SignUpScreen.route();
       case NavScreen.routeName:
-        return LoginScreen.route();
+        return NavScreen.route();
       // example: counter
       case CounterScreen.routName:
         return CounterScreen.route();
 
+      default:
+        return _errorRoute();
+    }
+  }
+
+  static Route onGenerateNestRoute(RouteSettings settings) {
+    switch (settings.name) {
       default:
         return _errorRoute();
     }
