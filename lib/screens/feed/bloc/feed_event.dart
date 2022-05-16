@@ -6,3 +6,7 @@ abstract class FeedEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FeedFetchPosts extends FeedEvent {}
+
+class FeedPaginatePosts extends FeedEvent {}

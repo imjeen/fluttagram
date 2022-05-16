@@ -8,7 +8,7 @@ abstract class BasePostRepository {
   void deleteLike({required String postId, required String userId});
   Stream<List<Future<Post?>>> getPostsByUserId({required String userId});
   Stream<List<Future<Comment?>>> getCommentsByPostId({required String postId});
-  Future<List<Post?>> getUserPostFeed(
+  Future<List<Post>> getUserPostFeed(
       {required String userId, String? lastPostId});
   Future<Set<String>> getUserLikedPostIds(
       {required String userId, required List<Post> posts});

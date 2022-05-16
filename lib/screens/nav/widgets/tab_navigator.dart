@@ -1,5 +1,8 @@
+import 'package:fluttagram/blocs/auth/auth_bloc.dart';
+import 'package:fluttagram/cubits/cubits.dart';
 import 'package:fluttagram/custom_router.dart';
 import 'package:fluttagram/enums/bottom_nav_item.dart';
+import 'package:fluttagram/repositories/post/post_repository.dart';
 import 'package:fluttagram/screens/create/bloc/create_bloc.dart';
 import 'package:fluttagram/screens/create/create_screen.dart';
 import 'package:fluttagram/screens/feed/bloc/feed_bloc.dart';
@@ -36,7 +39,10 @@ class TabNavigator extends StatelessWidget {
               switch (item) {
                 case BottomNavItem.feed:
                   return BlocProvider(
-                    create: (_) => FeedBloc(),
+                    create: (_) => FeedBloc(
+                        authBloc: context.read<AuthBloc>(),
+                        postRepository: context.read<PostRepository>(),
+                        likedPostsCubit: context.read<LikedPostsCubit>()),
                     child: const FeedScreen(),
                   );
                 case BottomNavItem.search:

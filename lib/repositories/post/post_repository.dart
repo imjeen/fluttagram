@@ -127,9 +127,10 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Future<List<Post?>> getUserPostFeed(
+  Future<List<Post>> getUserPostFeed(
       {required String userId, String? lastPostId}) async {
-    QuerySnapshot postsSnap;
+    final QuerySnapshot postsSnap;
+
     if (lastPostId == null) {
       postsSnap = await _firebaseFirestore
           .collection('feeds')
@@ -160,8 +161,10 @@ class PostRepository extends BasePostRepository {
           .get();
     }
 
-    return Future.wait(
+    final resultPosts = await Future.wait(
       postsSnap.docs.map((doc) => Post.fromDocument(doc)).toList(),
     );
+
+    return resultPosts.whereType<Post>().toList();
   }
 }
