@@ -1,3 +1,4 @@
+import 'package:fluttagram/repositories/storage/storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider(create: (_) => AuthRepository()),
         RepositoryProvider(create: (_) => UserRepository()),
+        RepositoryProvider(create: (_)=> StoreRepository()),
         RepositoryProvider(create: (_) => PostRepository()),
         RepositoryProvider(create: (_) => NotificationRepository())
       ],

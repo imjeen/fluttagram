@@ -41,6 +41,9 @@ dependencies:
   equatable: ^2.0.3
   enum_to_string: ^2.0.1
   cached_network_image: ^3.2.0
+  firebase_storage: ^10.2.16
+  uuid: ^3.0.6
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:

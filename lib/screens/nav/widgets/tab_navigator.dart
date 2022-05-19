@@ -3,8 +3,9 @@ import 'package:fluttagram/cubits/cubits.dart';
 import 'package:fluttagram/custom_router.dart';
 import 'package:fluttagram/enums/bottom_nav_item.dart';
 import 'package:fluttagram/repositories/post/post_repository.dart';
-import 'package:fluttagram/screens/create/bloc/create_bloc.dart';
-import 'package:fluttagram/screens/create/create_screen.dart';
+import 'package:fluttagram/repositories/storage/storage_repository.dart';
+import 'package:fluttagram/screens/create_post/create_post_screen.dart';
+import 'package:fluttagram/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:fluttagram/screens/feed/bloc/feed_bloc.dart';
 import 'package:fluttagram/screens/feed/feed_screen.dart';
 import 'package:fluttagram/screens/notifications/bloc/notifications_bloc.dart';
@@ -52,8 +53,12 @@ class TabNavigator extends StatelessWidget {
                   );
                 case BottomNavItem.create:
                   return BlocProvider(
-                    create: (_) => CreateBloc(),
-                    child: const CreateScreen(),
+                    create: (_) => CreatePostCubit(
+                      authBloc: context.read<AuthBloc>(),
+                      postRepository: context.read<PostRepository>(),
+                      storeRepository: context.read<StoreRepository>(),
+                    ),
+                    child: CreatePostScreen(),
                   );
                 case BottomNavItem.notifications:
                   return BlocProvider(

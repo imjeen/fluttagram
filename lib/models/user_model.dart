@@ -37,15 +37,8 @@ class User extends Equatable {
   bool get isEmpty => this == User.empty;
 
   @override
-  List<Object?> get props => [
-        id,
-        username,
-        email,
-        profileImageUrl,
-        followers,
-        following,
-        bio,
-      ];
+  List<Object?> get props =>
+      [id, username, email, profileImageUrl, followers, following, bio];
 
   User copyWith({
     String? id,
