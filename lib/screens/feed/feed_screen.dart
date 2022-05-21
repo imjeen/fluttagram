@@ -21,6 +21,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   void initState() {
+    super.initState();
     _scrollController = ScrollController()
       ..addListener(() {
         if (_scrollController.offset >=
@@ -30,7 +31,6 @@ class _FeedScreenState extends State<FeedScreen> {
           context.read<FeedBloc>().add(FeedPaginatePosts());
         }
       });
-    super.initState();
   }
 
   @override
