@@ -4,6 +4,7 @@ import 'package:fluttagram/custom_router.dart';
 import 'package:fluttagram/enums/bottom_nav_item.dart';
 import 'package:fluttagram/repositories/post/post_repository.dart';
 import 'package:fluttagram/repositories/storage/storage_repository.dart';
+import 'package:fluttagram/repositories/user/user_repository.dart';
 import 'package:fluttagram/screens/create_post/create_post_screen.dart';
 import 'package:fluttagram/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:fluttagram/screens/feed/bloc/feed_bloc.dart';
@@ -68,7 +69,13 @@ class TabNavigator extends StatelessWidget {
                   );
                 case BottomNavItem.profile:
                   return BlocProvider(
-                    create: (_) => ProfileBloc(),
+                    create: (_) => ProfileBloc(
+                      authBloc: context.read<AuthBloc>(),
+                      userRepository: context.read<UserRepository>(),
+                      postRepository: context.read<PostRepository>(),
+                      likedPostsCubit: context.read<LikedPostsCubit>(),
+                    )..add(ProfileLoadUser(
+                        userId: context.read<AuthBloc>().state.user.id)),
                     child: const ProfileScreen(),
                   );
               }
