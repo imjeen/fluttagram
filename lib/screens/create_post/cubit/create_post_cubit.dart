@@ -53,6 +53,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       );
 
       await _postRepository.createPost(post: post);
+      // TODO: add MY feeds
       emit(state.copyWith(status: CreatePostStatus.success));
     } catch (err) {
       print('#err: $err');

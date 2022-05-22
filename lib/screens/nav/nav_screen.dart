@@ -57,6 +57,11 @@ class NavScreen extends StatelessWidget {
               ),
               bottomNavigationBar: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.white,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                selectedItemColor: Theme.of(context).primaryColor,
+                unselectedItemColor: Colors.grey,
                 currentIndex: BottomNavItem.values.indexOf(state.selectedItem),
                 items: items
                     .map(

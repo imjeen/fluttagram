@@ -20,6 +20,12 @@ class ErrorDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       title: Text(title),
       content: Text(content),
+      actions: [
+        CupertinoDialogAction(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Ok'),
+        ),
+      ],
     );
   }
 
@@ -27,6 +33,12 @@ class ErrorDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(title),
       content: Text(content),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Ok'),
+        ),
+      ],
     );
   }
 }

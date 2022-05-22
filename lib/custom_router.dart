@@ -34,19 +34,19 @@ class CustomRouter {
   static Route onGenerateNestRoute(RouteSettings settings) {
     switch (settings.name) {
       default:
-        return _errorRoute();
+        return _errorRoute(text: 'nested route');
     }
   }
 
-  static Route _errorRoute() {
+  static Route _errorRoute({String? text}) {
     return MaterialPageRoute(
       settings: const RouteSettings(name: '/error'),
       builder: (_) => Scaffold(
         appBar: AppBar(
           title: const Text('Error'),
         ),
-        body: const Center(
-          child: Text("Something went wrong"),
+        body: Center(
+          child: Text('Something went wrong! ${text ?? ""}'),
         ),
       ),
     );

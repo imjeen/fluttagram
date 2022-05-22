@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               ? SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisExtent: 2.0,
+                    mainAxisSpacing: 2.0,
                     crossAxisSpacing: 2.0,
                   ),
                   delegate: SliverChildBuilderDelegate(
