@@ -1,3 +1,4 @@
+import 'package:fluttagram/screens/edit_profile/edit_profile_screen.dart';
 import 'package:fluttagram/screens/profile/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,10 @@ class ProfileButton extends StatelessWidget {
     return isCurrentUser
         ? TextButton(
             onPressed: () {
-              // TODO
+              Navigator.of(context).pushNamed(
+                EditProfileScreen.routeName,
+                arguments: EditProfileScreenArgs(context: context),
+              );
             },
             child: const Text(
               'Edit Profile',

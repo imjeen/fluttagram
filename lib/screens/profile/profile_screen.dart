@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttagram/blocs/auth/auth_bloc.dart';
 import 'package:fluttagram/cubits/liked_posts/liked_posts_cubit.dart';
+import 'package:fluttagram/repositories/post/post_repository.dart';
+import 'package:fluttagram/repositories/user/user_repository.dart';
 import 'package:fluttagram/screens/profile/bloc/profile_bloc.dart';
 import 'package:fluttagram/screens/profile/widget/profile_stats.dart';
 import 'package:fluttagram/widgets/error_dialog.dart';

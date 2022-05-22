@@ -1,4 +1,4 @@
-import 'package:fluttagram/screens/profile/widget/profle_button.dart';
+import 'package:fluttagram/screens/profile/widget/profile_button.dart';
 import 'package:flutter/material.dart';
 
 class ProfileStats extends StatelessWidget {
