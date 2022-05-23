@@ -45,7 +45,7 @@ class EditProfileScreen extends StatelessWidget {
     return BlocProvider<EditProfileCubit>(
       create: (context) => EditProfileCubit(
         userRepository: context.read<UserRepository>(),
-        storeRepository: context.read<StoreRepository>(),
+        storageRepository: context.read<StorageRepository>(),
         profileBloc: profileBloc,
       ),
       child: GestureDetector(

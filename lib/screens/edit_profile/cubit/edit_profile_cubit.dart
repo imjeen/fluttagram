@@ -11,14 +11,14 @@ part 'edit_profile_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {
   final UserRepository _userRepository;
-  final StoreRepository _storeRepository;
+  final StorageRepository _storageRepository;
   final ProfileBloc _profileBloc;
   EditProfileCubit({
     required UserRepository userRepository,
-    required StoreRepository storeRepository,
+    required StorageRepository storageRepository,
     required ProfileBloc profileBloc,
   })  : _userRepository = userRepository,
-        _storeRepository = storeRepository,
+        _storageRepository = storageRepository,
         _profileBloc = profileBloc,
         super(EditProfileState.initial()) {
     final user = _profileBloc.state.user;
@@ -52,7 +52,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       final user = _profileBloc.state.user;
       var profileImageUrl = user.profileImageUrl;
       if (state.profileImage != null) {
-        profileImageUrl = await _storeRepository.uploadProfileImage(
+        profileImageUrl = await _storageRepository.uploadProfileImage(
           url: profileImageUrl,
           image: state.profileImage,
         );

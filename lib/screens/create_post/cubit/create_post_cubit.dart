@@ -15,15 +15,15 @@ part 'create_post_state.dart';
 class CreatePostCubit extends Cubit<CreatePostState> {
   final AuthBloc _authBloc;
   final PostRepository _postRepository;
-  final StoreRepository _storeRepository;
+  final StorageRepository _storageRepository;
 
   CreatePostCubit({
     required AuthBloc authBloc,
     required PostRepository postRepository,
-    required StoreRepository storeRepository,
+    required StorageRepository storageRepository,
   })  : _authBloc = authBloc,
         _postRepository = postRepository,
-        _storeRepository = storeRepository,
+        _storageRepository = storageRepository,
         super(CreatePostState.initial());
 
   void postImageChange(File file) {
@@ -41,7 +41,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       final author = User.empty.copyWith(id: _authBloc.state.user.id);
 
       final postImageUrl =
-          await _storeRepository.uploadPostImage(image: state.postImage!);
+          await _storageRepository.uploadPostImage(image: state.postImage!);
 
       final post = Post(
         id: Uuid().v4(),

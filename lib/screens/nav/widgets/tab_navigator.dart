@@ -58,7 +58,7 @@ class TabNavigator extends StatelessWidget {
                     create: (_) => CreatePostCubit(
                       authBloc: context.read<AuthBloc>(),
                       postRepository: context.read<PostRepository>(),
-                      storeRepository: context.read<StoreRepository>(),
+                      storageRepository: context.read<StorageRepository>(),
                     ),
                     child: CreatePostScreen(),
                   );

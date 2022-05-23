@@ -62,7 +62,7 @@ class User extends Equatable {
 
   Map<String, dynamic> toDocument() {
     return {
-      'userName': username,
+      'username': username,
       "email": email,
       "profileImageUrl": profileImageUrl,
       "followers": followers,

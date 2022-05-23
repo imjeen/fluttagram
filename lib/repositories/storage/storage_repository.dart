@@ -4,10 +4,10 @@ import 'package:uuid/uuid.dart';
 
 import 'base_storage_repository.dart';
 
-class StoreRepository extends BaseStoreRepository {
+class StorageRepository extends BaseStoreRepository {
   final FirebaseStorage _firebaseStorage;
 
-  StoreRepository({FirebaseStorage? firebaseStorage})
+  StorageRepository({FirebaseStorage? firebaseStorage})
       : _firebaseStorage = firebaseStorage ?? FirebaseStorage.instance;
 
   Future<String> _uploadImage({

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider(create: (_) => AuthRepository()),
         RepositoryProvider(create: (_) => UserRepository()),
-        RepositoryProvider(create: (_)=> StoreRepository()),
+        RepositoryProvider(create: (_)=> StorageRepository()),
         RepositoryProvider(create: (_) => PostRepository()),
         RepositoryProvider(create: (_) => NotificationRepository())
       ],
