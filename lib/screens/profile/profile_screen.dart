@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttagram/blocs/auth/auth_bloc.dart';
 import 'package:fluttagram/cubits/liked_posts/liked_posts_cubit.dart';
-import 'package:fluttagram/repositories/post/post_repository.dart';
-import 'package:fluttagram/repositories/user/user_repository.dart';
+import 'package:fluttagram/screens/login/login_screen.dart';
 import 'package:fluttagram/screens/profile/bloc/profile_bloc.dart';
 import 'package:fluttagram/screens/profile/widget/profile_stats.dart';
 import 'package:fluttagram/widgets/error_dialog.dart';
@@ -64,6 +63,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                   onPressed: () {
                     context.read<AuthBloc>().add(AuthLogoutRequested());
                     context.read<LikedPostsCubit>().clearAllLikedPosts();
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamedAndRemoveUntil(
+                      LoginScreen.routeName,
+                      (Route<dynamic> route) => false,
+                    );
                   },
                   icon: const Icon(Icons.exit_to_app),
                 )
