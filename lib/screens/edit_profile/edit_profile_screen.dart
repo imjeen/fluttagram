@@ -76,7 +76,7 @@ class EditProfileScreen extends StatelessWidget {
                       child: UserProfileImage(
                         radius: 80.0,
                         avatarUrl: user.profileImageUrl,
-                        AvatarFile: state.profileImage,
+                        avatarFile: state.profileImage,
                       ),
                     ),
                     Padding(
@@ -140,6 +140,7 @@ class EditProfileScreen extends StatelessWidget {
 }
 
 void _selectProfileImage(BuildContext context) async {
+  final editProfileCubit = context.read<EditProfileCubit>(); // 异步前缓存 context 相关
   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
   if (pickedFile == null) {
@@ -149,5 +150,5 @@ void _selectProfileImage(BuildContext context) async {
 
   final File file = File(pickedFile.path);
 
-  context.read<EditProfileCubit>().profileImageChanged(file);
+  editProfileCubit.profileImageChanged(file);
 }

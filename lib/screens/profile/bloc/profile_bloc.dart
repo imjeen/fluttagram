@@ -66,6 +66,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       });
 
       emit(state.copyWith(
+        user: user,
         isCurrentUser: isCurrentUser,
         isFollowing: isFollowing,
         status: ProfileStatus.loaded,

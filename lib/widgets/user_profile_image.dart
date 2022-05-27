@@ -7,12 +7,12 @@ class UserProfileImage extends StatelessWidget {
   const UserProfileImage({
     Key? key,
     required this.avatarUrl,
-    this.AvatarFile,
+    this.avatarFile,
     this.radius = 18.0,
   }) : super(key: key);
 
   final String avatarUrl;
-  final File? AvatarFile;
+  final File? avatarFile;
   final double radius;
 
   @override
@@ -26,7 +26,7 @@ class UserProfileImage extends StatelessWidget {
   }
 
   Icon? _getChild() {
-    if (AvatarFile == null && avatarUrl.isEmpty) {
+    if (avatarFile == null && avatarUrl.isEmpty) {
       return Icon(
         Icons.account_circle,
         color: Colors.grey[400],
@@ -37,8 +37,9 @@ class UserProfileImage extends StatelessWidget {
   }
 
   dynamic? _getAvatar() {
-    if (AvatarFile != null) {
-      return FileImage(AvatarFile!);
+    print('#avatarFile=$avatarFile, \n#avatarUrl=$avatarUrl');
+    if (avatarFile != null && avatarFile?.path.isEmpty != true) {
+      return FileImage(avatarFile!);
     }
 
     if (avatarUrl.isNotEmpty) {
