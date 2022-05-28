@@ -2,6 +2,7 @@ import 'package:fluttagram/blocs/auth/auth_bloc.dart';
 import 'package:fluttagram/cubits/cubits.dart';
 import 'package:fluttagram/custom_router.dart';
 import 'package:fluttagram/enums/bottom_nav_item.dart';
+import 'package:fluttagram/repositories/notify/notify_repository.dart';
 import 'package:fluttagram/repositories/post/post_repository.dart';
 import 'package:fluttagram/repositories/storage/storage_repository.dart';
 import 'package:fluttagram/repositories/user/user_repository.dart';
@@ -9,8 +10,8 @@ import 'package:fluttagram/screens/create_post/create_post_screen.dart';
 import 'package:fluttagram/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:fluttagram/screens/feed/bloc/feed_bloc.dart';
 import 'package:fluttagram/screens/feed/feed_screen.dart';
-import 'package:fluttagram/screens/notifications/bloc/notifications_bloc.dart';
-import 'package:fluttagram/screens/notifications/notifications_screen.dart';
+import 'package:fluttagram/screens/notify/bloc/notify_bloc.dart';
+import 'package:fluttagram/screens/notify/notify_screen.dart';
 import 'package:fluttagram/screens/profile/bloc/profile_bloc.dart';
 import 'package:fluttagram/screens/profile/profile_screen.dart';
 import 'package:fluttagram/screens/search/bloc/search_bloc.dart';
@@ -64,8 +65,11 @@ class TabNavigator extends StatelessWidget {
                   );
                 case BottomNavItem.notifications:
                   return BlocProvider(
-                    create: (_) => NotificationsBloc(),
-                    child: const NotificationsScreen(),
+                    create: (_) => NotifyBloc(
+                      authBloc: context.read<AuthBloc>(),
+                      notifyRepository: context.read<NotifyRepository>(),
+                    ),
+                    child: const NotifyScreen(),
                   );
                 case BottomNavItem.profile:
                   return BlocProvider(

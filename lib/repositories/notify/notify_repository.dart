@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttagram/models/notification_model.dart';
+import 'package:fluttagram/models/notify_model.dart';
 
-import 'base_notification_repository.dart';
+import 'base_notify_repository.dart';
 
-class NotificationRepository extends BaseNotificationRepository {
+class NotifyRepository extends BaseNotifyRepository {
   final FirebaseFirestore _firebaseFirestore;
 
-  NotificationRepository({FirebaseFirestore? firebaseFirestore})
+  NotifyRepository({FirebaseFirestore? firebaseFirestore})
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  Stream<List<Future<Notification?>>> getUserNotifications(
+  Stream<List<Future<Notify?>>> getUserNotifications(
       {required String userId}) {
     return _firebaseFirestore
         .collection('users')
@@ -20,7 +20,7 @@ class NotificationRepository extends BaseNotificationRepository {
         .snapshots()
         .map(
           (snap) =>
-              snap.docs.map((doc) => Notification.fromDocument(doc)).toList(),
+              snap.docs.map((doc) => Notify.fromDocument(doc)).toList(),
         );
   }
 }

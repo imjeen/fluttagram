@@ -37,7 +37,7 @@ class UserProfileImage extends StatelessWidget {
   }
 
   dynamic? _getAvatar() {
-    print('#avatarFile=$avatarFile, \n#avatarUrl=$avatarUrl');
+    // print('#avatarFile=$avatarFile, \n#avatarUrl=$avatarUrl');
     if (avatarFile != null && avatarFile?.path.isEmpty != true) {
       return FileImage(avatarFile!);
     }

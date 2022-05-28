@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttagram/enums/notification_type.dart';
-import 'package:fluttagram/models/notification_model.dart';
+import 'package:fluttagram/enums/notify_type.dart';
+import 'package:fluttagram/models/notify_model.dart';
 import 'package:fluttagram/models/user_model.dart';
 import 'package:fluttagram/repositories/user/base_user_repository.dart';
 
@@ -28,8 +28,8 @@ class UserRepository extends BaseUserRepository {
         .doc(userId)
         .set({});
 
-    final notification = Notification(
-      type: NotificationType.follow,
+    final notification = Notify(
+      type: NotifyType.follow,
       fromUser: User.empty.copyWith(id: userId),
       date: DateTime.now(),
     );

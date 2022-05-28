@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttagram/enums/notification_type.dart';
-import 'package:fluttagram/models/notification_model.dart';
+import 'package:fluttagram/enums/notify_type.dart';
+import 'package:fluttagram/models/notify_model.dart';
 import 'package:fluttagram/models/post_model.dart';
 import 'package:fluttagram/models/comment_model.dart';
 import 'package:fluttagram/models/user_model.dart';
@@ -21,8 +21,8 @@ class PostRepository extends BasePostRepository {
         .collection('postComments')
         .add(comment.toDocument());
 
-    final notification = Notification(
-      type: NotificationType.comment,
+    final notification = Notify(
+      type: NotifyType.comment,
       fromUser: comment.author,
       date: DateTime.now(),
       post: post,
@@ -49,8 +49,8 @@ class PostRepository extends BasePostRepository {
         .doc(userId)
         .set({});
 
-    final notification = Notification(
-      type: NotificationType.like,
+    final notification = Notify(
+      type: NotifyType.like,
       fromUser: User.empty.copyWith(id: userId),
       date: DateTime.now(),
     );

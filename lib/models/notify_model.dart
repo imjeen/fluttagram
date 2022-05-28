@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fluttagram/enums/notification_type.dart';
+import 'package:fluttagram/enums/notify_type.dart';
 import 'package:fluttagram/models/post_model.dart';
 import 'package:fluttagram/models/user_model.dart';
 
-class Notification extends Equatable {
+class Notify extends Equatable {
   final String? id;
-  final NotificationType type;
+  final NotifyType type;
   final User fromUser;
   final Post? post;
   final DateTime date;
 
-  const Notification({
+  const Notify({
     this.id,
     required this.type,
     required this.fromUser,
@@ -23,14 +23,14 @@ class Notification extends Equatable {
   @override
   List<Object?> get props => [id, type, fromUser, post, date];
 
-  Notification copyWith({
+  Notify copyWith({
     String? id,
-    NotificationType? type,
+    NotifyType? type,
     User? fromUser,
     Post? post,
     DateTime? date,
   }) {
-    return Notification(
+    return Notify(
       id: id ?? this.id,
       type: type ?? this.type,
       fromUser: fromUser ?? this.fromUser,
@@ -49,7 +49,7 @@ class Notification extends Equatable {
     };
   }
 
-  static Future<Notification?> fromDocument(DocumentSnapshot? doc) async {
+  static Future<Notify?> fromDocument(DocumentSnapshot? doc) async {
     final data = doc?.data() as Map<String, dynamic>?;
     final fromUserRef = data?['fromUser'] as DocumentReference?;
     final postRef = data?['post'] as DocumentReference?;
@@ -61,9 +61,9 @@ class Notification extends Equatable {
 
     if (!fromUserDoc.exists) return null;
 
-    return Notification(
+    return Notify(
       id: doc.id,
-      type: EnumToString.fromString(NotificationType.values, data['type'])!,
+      type: EnumToString.fromString(NotifyType.values, data['type'])!,
       post: postDoc?.exists == true ? await Post.fromDocument(postDoc) : null,
       fromUser: User.fromDocument(fromUserDoc),
       date: (data['date'] ?? Timestamp.now()).toDate(),

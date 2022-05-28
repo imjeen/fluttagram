@@ -8,7 +8,7 @@ import 'package:fluttagram/blocs/simple_bloc_observer.dart';
 import 'package:fluttagram/cubits/cubits.dart';
 import 'package:fluttagram/custom_router.dart';
 import 'package:fluttagram/repositories/auth/auth_repository.dart';
-import 'package:fluttagram/repositories/notification/notification_repository.dart';
+import 'package:fluttagram/repositories/notify/notify_repository.dart';
 import 'package:fluttagram/repositories/post/post_repository.dart';
 import 'package:fluttagram/repositories/user/user_repository.dart';
 import 'package:fluttagram/screens/splash/splash_screen.dart';
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (_) => UserRepository()),
         RepositoryProvider(create: (_)=> StorageRepository()),
         RepositoryProvider(create: (_) => PostRepository()),
-        RepositoryProvider(create: (_) => NotificationRepository())
+        RepositoryProvider(create: (_) => NotifyRepository())
       ],
       child: MultiBlocProvider(
         providers: [
