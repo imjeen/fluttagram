@@ -37,7 +37,7 @@ class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => true,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: BlocConsumer<SignUpCubit, SignUpState>(
@@ -152,7 +152,7 @@ class SignUpForm extends StatelessWidget {
                   onSurface: Colors.transparent,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(LoginScreen.routeName);
+                  Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
                 },
                 child: const Text('Back to Login'),
               ),

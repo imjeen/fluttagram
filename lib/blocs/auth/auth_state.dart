@@ -24,7 +24,5 @@ class AuthState extends Equatable {
   }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user, status];
 }
-
-class AuthInitial extends AuthState {}

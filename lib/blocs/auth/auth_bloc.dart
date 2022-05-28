@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
-        super(AuthInitial()) {
+        super(AuthState.unknown()) {
     // on<AuthEvent>((event, emit) {});
     on<AuthLogoutRequested>(_onLogoutRequested);
     on<AuthUserChanged>(_onUserChanged);
@@ -27,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _onLogoutRequested(AuthLogoutRequested event, Emitter<AuthState> emit) {
     unawaited(_authRepository.logOut());
+    emit(AuthState.unauthenticated());
   }
 
   void _onUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
