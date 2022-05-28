@@ -4,7 +4,7 @@ import 'package:fluttagram/models/user_model.dart';
 abstract class BaseAuthRepository {
   Stream<User> get user;
   // 注册
-  Future<auth.User> signUpWithEmailAndPassword({
+  Future<User> signUpWithEmailAndPassword({
     required String userName,
     required String email,
     required String password,

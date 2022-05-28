@@ -24,7 +24,7 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<auth.User> signUpWithEmailAndPassword({
+  Future<User> signUpWithEmailAndPassword({
     required String userName,
     required String email,
     required String password,
@@ -34,13 +34,18 @@ class AuthRepository extends BaseAuthRepository {
         email: email,
         password: password,
       );
-      final user = credential.user!;
-      _firebaseFirestore.collection('users').doc(user.uid).set({
-        "userName": userName,
-        'email': email,
-        'followers': 0,
-        'following': 0,
-      });
+      final credentialUser = credential.user!;
+
+      final user = User.empty.copyWith(
+        id: credentialUser.uid,
+        username: userName,
+        email: email,
+      );
+      await _firebaseFirestore
+          .collection('users')
+          .doc(credentialUser.uid)
+          .set(user.toDocument());
+
       return user;
     } on auth.FirebaseAuthException catch (err) {
       throw Failure(code: err.code, message: err.message ?? '');

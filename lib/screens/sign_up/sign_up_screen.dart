@@ -1,5 +1,7 @@
+import 'package:fluttagram/blocs/auth/auth_bloc.dart';
 import 'package:fluttagram/repositories/auth/auth_repository.dart';
 import 'package:fluttagram/screens/login/login_screen.dart';
+import 'package:fluttagram/screens/nav/nav_screen.dart';
 import 'package:fluttagram/screens/sign_up/cubits/sign_up_cubit.dart';
 import 'package:fluttagram/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,7 @@ class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async => false,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: BlocConsumer<SignUpCubit, SignUpState>(
@@ -48,13 +50,16 @@ class SignUpForm extends StatelessWidget {
                 builder: (context) =>
                     ErrorDialog(content: state.failure.message),
               );
+            } else if (state.status == SignUpStatus.success) {
+              if (context.read<AuthBloc>().state.status ==
+                  AuthStatus.authenticated) {
+                Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
+              }
             }
           },
           builder: (context, state) {
             return Scaffold(
-              appBar: AppBar(
-                title: const Text(''),
-              ),
+              // appBar: AppBar(title: const Text('')),
               body: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -135,7 +140,7 @@ class SignUpForm extends StatelessWidget {
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState?.validate() != true &&
+                  if (_formKey.currentState?.validate() == true &&
                       state.status != SignUpStatus.submitting) {
                     context.read<SignUpCubit>().signUpWithCredentials();
                   }
@@ -152,7 +157,8 @@ class SignUpForm extends StatelessWidget {
                   onSurface: Colors.transparent,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                  Navigator.of(context)
+                      .pushReplacementNamed(LoginScreen.routeName);
                 },
                 child: const Text('Back to Login'),
               ),
