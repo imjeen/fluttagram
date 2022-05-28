@@ -19,7 +19,7 @@ class PostRepository extends BasePostRepository {
         .collection('comments')
         .doc(comment.postId)
         .collection('postComments')
-        .add(post.toDocument());
+        .add(comment.toDocument());
 
     final notification = Notification(
       type: NotificationType.comment,

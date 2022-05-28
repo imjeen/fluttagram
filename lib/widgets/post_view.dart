@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttagram/models/post_model.dart';
+import 'package:fluttagram/screens/comments/comments_screen.dart';
 import 'package:fluttagram/widgets/user_profile_image.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +25,8 @@ class PostView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               // TODO
-              
             },
             child: Row(
               children: [
@@ -53,7 +53,7 @@ class PostView extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-         Row(
+        Row(
           children: [
             IconButton(
               onPressed: onLike,
@@ -63,7 +63,10 @@ class PostView extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                // TODO
+                Navigator.of(context).pushNamed(
+                  CommentsScreen.routeName,
+                  arguments: CommentsScreenArgs(post: post),
+                );
               },
               icon: const Icon(Icons.comment_outlined),
             ),

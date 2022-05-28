@@ -1,3 +1,4 @@
+import 'package:fluttagram/screens/comments/comments_screen.dart';
 import 'package:fluttagram/screens/counter/counter_screen.dart';
 import 'package:fluttagram/screens/edit_profile/edit_profile_screen.dart';
 import 'package:fluttagram/screens/sign_up/sign_up_screen.dart';
@@ -34,6 +35,10 @@ class CustomRouter {
 
   static Route onGenerateNestRoute(RouteSettings settings) {
     switch (settings.name) {
+      case CommentsScreen.routeName:
+        return CommentsScreen.route(
+          args: settings.arguments as CommentsScreenArgs,
+        );
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(
           args: settings.arguments as EditProfileScreenArgs,
