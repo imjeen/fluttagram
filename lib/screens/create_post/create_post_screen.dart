@@ -74,6 +74,11 @@ class CreatePostScreen extends StatelessWidget {
                   children: [
                     TextFormField(
                       decoration: const InputDecoration(hintText: 'Caption'),
+                      onChanged: (value) =>
+                          context.read<CreatePostCubit>().captionChange(value),
+                      validator: (value) => (value ?? '').trim().isEmpty
+                          ? 'Caption cannot be empty.'
+                          : null,
                     ),
                     const SizedBox(height: 28.0),
                     ElevatedButton(

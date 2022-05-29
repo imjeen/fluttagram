@@ -67,7 +67,15 @@ class _FeedScreenState extends State<FeedScreen> {
 
   Widget _body(FeedState state) {
     if (state.status == FeedStatus.loading) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          CircularProgressIndicator(),
+          SizedBox(height: 20.0),
+          Text('loading...'),
+        ],
+      ));
     }
 
     return RefreshIndicator(
@@ -76,10 +84,11 @@ class _FeedScreenState extends State<FeedScreen> {
           context.read<LikedPostsCubit>().clearAllLikedPosts();
         },
         child: ListView.builder(
+          controller: _scrollController,
           itemCount: state.posts.length,
           itemBuilder: (context, index) {
             final post = state.posts[index];
-            final likedPostsState = context.read<LikedPostsCubit>().state;
+            final likedPostsState = context.watch<LikedPostsCubit>().state;
             final liked = likedPostsState.likedPostIds.contains(post.id);
             final recentlyLiked =
                 likedPostsState.recentLyLikedPostIds.contains(post.id);

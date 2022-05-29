@@ -31,9 +31,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   _feedFetchPosts(FeedFetchPosts event, Emitter<FeedState> emit) async {
     emit(state.copyWith(posts: [], status: FeedStatus.loading));
     try {
-      final posts = await _postRepository.getUserPostFeed(
-        userId: _authBloc.state.user.id,
-      );
+      // final posts = await _postRepository.getUserPostFeed(
+      //   userId: _authBloc.state.user.id,
+      // );
+      final posts = await _postRepository.getPosts();
 
       // print('[_feedFetchPosts] posts=${posts}');
 
@@ -56,12 +57,16 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   }
 
   _feedPaginatePosts(FeedPaginatePosts event, Emitter<FeedState> emit) async {
-    emit(state.copyWith(posts: [], status: FeedStatus.loading));
+    emit(state.copyWith(status: FeedStatus.paginating));
 
     try {
+      print('state.posts=${state.posts}');
       final lastPostId = state.posts.isNotEmpty ? state.posts.last.id : null;
-      final posts = await _postRepository.getUserPostFeed(
-        userId: _authBloc.state.user.id,
+      // final posts = await _postRepository.getUserPostFeed(
+      //   userId: _authBloc.state.user.id,
+      //   lastPostId: lastPostId,
+      // );
+      final posts = await _postRepository.getPosts(
         lastPostId: lastPostId,
       );
 

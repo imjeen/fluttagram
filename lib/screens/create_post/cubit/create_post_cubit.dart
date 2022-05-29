@@ -52,8 +52,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
         date: DateTime.now(),
       );
 
-      await _postRepository.createPost(post: post);
-      // TODO: add MY feeds
+      await _postRepository.createPost(
+        post: post,
+        userId: _authBloc.state.user.id,
+      );
+
       emit(state.copyWith(status: CreatePostStatus.success));
     } catch (err) {
       print('#err: $err');

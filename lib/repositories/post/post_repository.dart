@@ -63,8 +63,13 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Future<void> createPost({required Post post}) async {
+  Future<void> createPost({required Post post, required String userId}) async {
     await _firebaseFirestore.collection('posts').add(post.toDocument());
+    await _firebaseFirestore
+        .collection('feeds')
+        .doc(userId)
+        .collection('userFeed')
+        .add(post.toDocument());
   }
 
   @override
@@ -109,8 +114,10 @@ class PostRepository extends BasePostRepository {
   }
 
   @override
-  Future<Set<String>> getUserLikedPostIds(
-      {required String userId, required List<Post> posts}) async {
+  Future<Set<String>> getUserLikedPostIds({
+    required String userId,
+    required List<Post> posts,
+  }) async {
     final postIds = <String>{};
     for (final post in posts) {
       final likeDoc = await _firebaseFirestore
@@ -126,9 +133,12 @@ class PostRepository extends BasePostRepository {
     return postIds;
   }
 
+  // 获取用户的 feed 列表
   @override
-  Future<List<Post>> getUserPostFeed(
-      {required String userId, String? lastPostId}) async {
+  Future<List<Post>> getUserPostFeed({
+    required String userId,
+    String? lastPostId,
+  }) async {
     final QuerySnapshot postsSnap;
 
     if (lastPostId == null) {
@@ -166,5 +176,49 @@ class PostRepository extends BasePostRepository {
     );
 
     return resultPosts.whereType<Post>().toList();
+  }
+
+  // 获取 post 列表
+  @override
+  Future<List<Post>> getPosts({
+    String? lastPostId,
+  }) async {
+    final QuerySnapshot postsSnap;
+
+    print('#lastPostId=${lastPostId}');
+
+    if (lastPostId == null) {
+      postsSnap = await _firebaseFirestore
+          .collection('posts')
+          .orderBy('date', descending: true)
+          .limit(3)
+          .get();
+    } else {
+      final lastPostDoc =
+          await _firebaseFirestore.collection('posts').doc(lastPostId).get();
+
+      print('#lastPostDoc=${lastPostDoc.exists}');
+
+      if (!lastPostDoc.exists) {
+        return [];
+      }
+
+      postsSnap = await _firebaseFirestore
+          .collection('posts')
+          .orderBy('date', descending: true)
+          .startAfterDocument(lastPostDoc)
+          .limit(3)
+          .get();
+    }
+
+    final resultPosts = await Future.wait(
+      postsSnap.docs.map((doc) => Post.fromDocument(doc)).toList(),
+    ).then(
+      (posts) => posts.whereType<Post>().toList(),
+    );
+
+    print('#resultPosts=${resultPosts.length}');
+
+    return resultPosts;
   }
 }
