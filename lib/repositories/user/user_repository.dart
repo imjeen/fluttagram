@@ -11,8 +11,10 @@ class UserRepository extends BaseUserRepository {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  void followUser(
-      {required String userId, required String followUserId}) async {
+  void followUser({
+    required String userId,
+    required String followUserId,
+  }) async {
     // 将 跟随者 添加到 用户的跟随列表中
     _firebaseFirestore
         .collection('following')
@@ -22,7 +24,7 @@ class UserRepository extends BaseUserRepository {
         .set({});
     // 将 用户 添加到 追随者的跟随列表中
     _firebaseFirestore
-        .collection('follower')
+        .collection('followers')
         .doc(followUserId)
         .collection('userFollowers')
         .doc(userId)
@@ -35,8 +37,8 @@ class UserRepository extends BaseUserRepository {
     );
 
     _firebaseFirestore
-        .collection('user')
-        .doc(userId)
+        .collection('users')
+        .doc(followUserId)
         .collection('userNotifications')
         .add(notification.toDocument());
   }
