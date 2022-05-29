@@ -14,7 +14,7 @@ import 'package:fluttagram/screens/notify/bloc/notify_bloc.dart';
 import 'package:fluttagram/screens/notify/notify_screen.dart';
 import 'package:fluttagram/screens/profile/bloc/profile_bloc.dart';
 import 'package:fluttagram/screens/profile/profile_screen.dart';
-import 'package:fluttagram/screens/search/bloc/search_bloc.dart';
+import 'package:fluttagram/screens/search/cubit/search_cubit.dart';
 import 'package:fluttagram/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +51,9 @@ class TabNavigator extends StatelessWidget {
                   );
                 case BottomNavItem.search:
                   return BlocProvider(
-                    create: (_) => SearchBloc(),
+                    create: (_) => SearchCubit(
+                      userRepository: context.read<UserRepository>(),
+                    ),
                     child: const SearchScreen(),
                   );
                 case BottomNavItem.create:
