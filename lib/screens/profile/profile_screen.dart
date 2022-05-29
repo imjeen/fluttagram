@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttagram/blocs/auth/auth_bloc.dart';
 import 'package:fluttagram/cubits/liked_posts/liked_posts_cubit.dart';
+import 'package:fluttagram/repositories/post/post_repository.dart';
+import 'package:fluttagram/repositories/user/user_repository.dart';
+import 'package:fluttagram/screens/comments/comments_screen.dart';
 import 'package:fluttagram/screens/login/login_screen.dart';
 import 'package:fluttagram/screens/profile/bloc/profile_bloc.dart';
 import 'package:fluttagram/screens/profile/widget/profile_stats.dart';
@@ -10,13 +13,27 @@ import 'package:fluttagram/widgets/user_profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+class ProfileScreenArgs {
+  final String userId;
+
+  const ProfileScreenArgs({required this.userId});
+}
+
 class ProfileScreen extends StatefulWidget {
   static const String routeName = "/profile";
 
-  static Route route() {
+  static Route route({required ProfileScreenArgs args}) {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (_) => ProfileScreen(),
+      builder: (context) => BlocProvider(
+        create: (_) => ProfileBloc(
+          authBloc: context.read<AuthBloc>(),
+          likedPostsCubit: context.read<LikedPostsCubit>(),
+          postRepository: context.read<PostRepository>(),
+          userRepository: context.read<UserRepository>(),
+        )..add(ProfileLoadUser(userId: args.userId)),
+        child: const ProfileScreen(),
+      ),
     );
   }
 
@@ -140,7 +157,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                       final post = state.posts[index];
                       return GestureDetector(
                         onTap: () {
-                          // TODO
+                          Navigator.of(context).pushNamed(
+                            CommentsScreen.routeName,
+                            arguments: CommentsScreenArgs(post: post),
+                          );
                         },
                         child: CachedNetworkImage(
                           imageUrl: post.imageUrl,

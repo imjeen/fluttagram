@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttagram/models/post_model.dart';
 import 'package:fluttagram/screens/comments/comments_screen.dart';
+import 'package:fluttagram/screens/profile/profile_screen.dart';
 import 'package:fluttagram/widgets/user_profile_image.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,10 @@ class PostView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             onTap: () {
-              // TODO
+              Navigator.of(context).pushNamed(
+                ProfileScreen.routeName,
+                arguments: ProfileScreenArgs(userId: post.author.id),
+              );
             },
             child: Row(
               children: [

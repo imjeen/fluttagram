@@ -1,6 +1,7 @@
 import 'package:fluttagram/screens/comments/comments_screen.dart';
 import 'package:fluttagram/screens/counter/counter_screen.dart';
 import 'package:fluttagram/screens/edit_profile/edit_profile_screen.dart';
+import 'package:fluttagram/screens/profile/profile_screen.dart';
 import 'package:fluttagram/screens/sign_up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttagram/screens/login/login_screen.dart';
@@ -42,6 +43,10 @@ class CustomRouter {
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(
           args: settings.arguments as EditProfileScreenArgs,
+        );
+      case ProfileScreen.routeName:
+        return ProfileScreen.route(
+          args: settings.arguments as ProfileScreenArgs,
         );
       default:
         return _errorRoute(text: 'nested route');
