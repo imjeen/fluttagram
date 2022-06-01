@@ -7,6 +7,7 @@ import 'package:fluttagram/widgets/user_profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttagram/models/notify_model.dart';
+import 'package:intl/intl.dart';
 
 class NotifyScreen extends StatelessWidget {
   static const String routeName = '/notifications';
@@ -70,7 +71,7 @@ class NotifyTile extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        notification.date.toString(),
+        DateFormat.yMd().add_jm().format(notification.date),
         style: TextStyle(
           color: Colors.grey[600],
           fontWeight: FontWeight.w500,

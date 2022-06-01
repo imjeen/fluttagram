@@ -6,6 +6,7 @@ import 'package:fluttagram/widgets/error_dialog.dart';
 import 'package:fluttagram/widgets/user_profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class CommentsScreenArgs {
   final Post post;
@@ -80,7 +81,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   ),
                 ),
                 subtitle: Text(
-                  comment.date.toString(),
+                  DateFormat.yMd().add_jm().format(comment.date),
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontWeight: FontWeight.w500,

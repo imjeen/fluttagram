@@ -3,7 +3,9 @@ import 'package:fluttagram/models/post_model.dart';
 import 'package:fluttagram/screens/comments/comments_screen.dart';
 import 'package:fluttagram/screens/profile/profile_screen.dart';
 import 'package:fluttagram/widgets/user_profile_image.dart';
+import 'package:fluttagram/extensions/datetime_extension.dart';
 import 'package:flutter/material.dart';
+
 
 class PostView extends StatelessWidget {
   const PostView({
@@ -100,7 +102,7 @@ class PostView extends StatelessWidget {
               ),
               const SizedBox(height: 4.0),
               Text(
-                post.date.toString(),
+                post.date.timeAgo(),
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
